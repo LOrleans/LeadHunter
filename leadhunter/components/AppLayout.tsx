@@ -36,10 +36,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   };
 
   const navItems = [
-    { name: 'Dashboard', href: '/app/dashboard', icon: LayoutDashboard },
-    { name: 'Base de Leads', href: '/app/leads', icon: Users },
+    { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+    { name: 'Base de Leads', href: '/leads', icon: Users },
     ...(user?.role === 'admin' || user?.role === 'manager' 
-      ? [{ name: 'Usuários', href: '/app/usuarios', icon: ShieldAlert }] 
+      ? [{ name: 'Usuários', href: '/usuarios', icon: ShieldAlert }] 
       : []
     ),
   ];
@@ -53,7 +53,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const currentTitle = navItems.find(item => pathname === item.href || (item.href !== '/app/dashboard' && pathname.startsWith(item.href)))?.name || 'Detalhes do Lead';
+  const currentTitle = navItems.find(item => pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href)))?.name || 'Detalhes do Lead';
 
   return (
     <div className="flex h-screen bg-zinc-50 dark:bg-zinc-950 overflow-hidden font-sans transition-colors">
@@ -80,7 +80,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-1">
           {navItems.map((item) => {
-            const isActive = pathname === item.href || (item.href !== '/app/dashboard' && pathname.startsWith(item.href));
+            const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
             const Icon = item.icon;
             
             return (

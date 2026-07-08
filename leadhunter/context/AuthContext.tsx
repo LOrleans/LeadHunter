@@ -57,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     setUser(targetUser);
     localStorage.setItem('mock_session_user', JSON.stringify(targetUser));
-    router.push('/app/dashboard');
+    router.push('/dashboard');
   };
 
   const register = async (name: string, email: string) => {
@@ -76,7 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Faz o login automático após o registro
     setUser(newUser);
     localStorage.setItem('mock_session_user', JSON.stringify(newUser));
-    router.push('/app/dashboard');
+    router.push('/dashboard');
   };
 
   const logout = () => {

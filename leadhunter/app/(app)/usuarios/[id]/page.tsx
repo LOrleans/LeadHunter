@@ -26,7 +26,7 @@ export default function UserManagementPage() {
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Usuário não encontrado</h1>
         <p className="text-zinc-500 dark:text-zinc-400">O funcionário com ID {id} não existe no sistema.</p>
         <Link 
-          href="/app/usuarios"
+          href="/usuarios"
           className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors"
         >
           Voltar para a lista
@@ -51,7 +51,7 @@ export default function UserManagementPage() {
     setIsRemoving(true);
     // Simula uma chamada de API
     setTimeout(() => {
-      router.push('/app/usuarios');
+      router.push('/usuarios');
     }, 1000);
   };
 
@@ -62,7 +62,7 @@ export default function UserManagementPage() {
         {/* Navegação e Cabeçalho */}
         <div>
           <Link 
-            href="/app/usuarios"
+            href="/usuarios"
             className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors mb-6"
           >
             <ArrowLeft className="w-4 h-4" />

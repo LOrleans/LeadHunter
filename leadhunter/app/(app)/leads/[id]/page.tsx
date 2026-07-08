@@ -41,7 +41,7 @@ export default async function LeadDetailsPage({ params }: { params: Promise<{ id
         <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Lead não encontrado</h1>
         <p className="text-zinc-500 dark:text-zinc-400">O lead com ID {id} não existe ou foi removido.</p>
         <Link 
-          href="/app/leads"
+          href="/leads"
           className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors"
         >
           Voltar para a lista
@@ -61,7 +61,7 @@ export default async function LeadDetailsPage({ params }: { params: Promise<{ id
         {/* Cabeçalho de Navegação */}
         <div>
           <Link 
-            href="/app/leads"
+            href="/leads"
             className="inline-flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors mb-4"
           >
             <ArrowLeft className="w-4 h-4" />
