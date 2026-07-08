@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
-import { ArrowLeft, UserRound, ShieldCheck, AlertOctagon, Mail, Save, Trash2, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, UserRound, ShieldCheck, AlertOctagon, Mail, Save, Trash2, CheckCircle2, Camera } from 'lucide-react';
 import { MOCK_USERS } from '@/lib/mock-data';
 import { Role } from '@/types/auth';
 
@@ -14,6 +14,10 @@ export default function UserManagementPage() {
 
   const [user, setUser] = useState(() => MOCK_USERS.find(u => u.id === id) || null);
   const [selectedRole, setSelectedRole] = useState<Role>(user?.role || 'consultor');
+  const [userName, setUserName] = useState(user?.name || '');
+  const [userEmail, setUserEmail] = useState(user?.email || '');
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   
   // UI states para o MVP
   const [isSaving, setIsSaving] = useState(false);
@@ -41,7 +45,7 @@ export default function UserManagementPage() {
     setTimeout(() => {
       setIsSaving(false);
       setShowSuccess(true);
-      setUser(prev => prev ? { ...prev, role: selectedRole } : null);
+      setUser(prev => prev ? { ...prev, role: selectedRole, name: userName, email: userEmail } : null);
       
       setTimeout(() => setShowSuccess(false), 3000);
     }, 800);
@@ -71,15 +75,38 @@ export default function UserManagementPage() {
           
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-indigo-600 dark:bg-indigo-500 text-white flex items-center justify-center font-bold text-2xl shadow-lg shadow-indigo-600/20 transition-colors">
-                {user.name.charAt(0)}
+              <div className="relative group">
+                <div className="w-14 h-14 rounded-2xl bg-indigo-600 dark:bg-indigo-500 text-white flex items-center justify-center font-bold text-2xl shadow-lg shadow-indigo-600/20 transition-colors overflow-hidden">
+                  {photoUrl ? (
+                    <img src={photoUrl} alt={userName} className="w-full h-full object-cover" />
+                  ) : (
+                    userName.charAt(0) || 'U'
+                  )}
+                </div>
+                <button 
+                  onClick={() => fileInputRef.current?.click()}
+                  className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-2xl transition-opacity cursor-pointer"
+                  title="Alterar Foto"
+                >
+                  <Camera className="w-5 h-5 text-white" />
+                </button>
+                <input 
+                  type="file" 
+                  ref={fileInputRef} 
+                  className="hidden" 
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) setPhotoUrl(URL.createObjectURL(file));
+                  }}
+                />
               </div>
               <div>
                 <h1 className="text-3xl font-bold text-zinc-900 dark:text-white tracking-tight transition-colors">
                   Gerenciar Acesso
                 </h1>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1 transition-colors">
-                  Visualizando configurações de <strong className="text-zinc-700 dark:text-zinc-300">{user.name}</strong>
+                  Visualizando configurações de <strong className="text-zinc-700 dark:text-zinc-300">{userName}</strong>
                 </p>
               </div>
             </div>
@@ -110,9 +137,9 @@ export default function UserManagementPage() {
                   <UserRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                   <input 
                     type="text" 
-                    value={user.name}
-                    disabled
-                    className="w-full pl-9 pr-4 py-2 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm text-zinc-600 dark:text-zinc-400 cursor-not-allowed transition-colors"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 transition-colors"
                   />
                 </div>
               </div>
@@ -123,9 +150,9 @@ export default function UserManagementPage() {
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
                   <input 
                     type="email" 
-                    value={user.email}
-                    disabled
-                    className="w-full pl-9 pr-4 py-2 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm text-zinc-600 dark:text-zinc-400 cursor-not-allowed transition-colors"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    className="w-full pl-9 pr-4 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg text-sm text-zinc-900 dark:text-white focus:ring-2 focus:ring-indigo-500 transition-colors"
                   />
                 </div>
               </div>
@@ -167,7 +194,7 @@ export default function UserManagementPage() {
               <div className="pt-6 mt-6 border-t border-zinc-100 dark:border-zinc-800">
                 <button 
                   onClick={handleSave}
-                  disabled={isSaving || selectedRole === user.role}
+                  disabled={isSaving}
                   className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold transition-all shadow-sm shadow-indigo-600/20 disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
                 >
                   {isSaving ? (

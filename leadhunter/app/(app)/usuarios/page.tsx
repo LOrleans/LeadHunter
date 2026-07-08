@@ -128,13 +128,15 @@ export default function UsuariosPage() {
                     {renderRoleBadge(member.role)}
                   </div>
                   
-                  <Link 
-                    href={`/app/usuarios/${member.id}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors"
-                  >
-                    <Settings className="w-4 h-4" />
-                    Gerenciar
-                  </Link>
+                  {user?.role === 'admin' && (
+                    <Link 
+                      href={`/usuarios/${member.id}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 rounded-lg transition-colors"
+                    >
+                      <Settings className="w-4 h-4" />
+                      Gerenciar
+                    </Link>
+                  )}
                 </div>
               </li>
             ))}
