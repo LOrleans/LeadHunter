@@ -42,7 +42,7 @@ export default function UsuariosPage() {
     if (!isAuthenticated || !user) return;
 
     if (user.role === 'consultor') {
-      router.replace('/app/dashboard');
+      router.replace('/dashboard');
     } else {
       setIsAuthorized(true);
     }

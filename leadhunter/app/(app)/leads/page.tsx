@@ -127,7 +127,7 @@ export default function LeadsPage() {
   );
 
   const handleRowClick = (leadId: string) => {
-    router.push('/app/leads/' + leadId);
+    router.push('/leads/' + leadId);
   };
 
   const handleAssignToMe = (e: React.MouseEvent, leadId: string) => {
