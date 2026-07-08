@@ -118,7 +118,7 @@ export default function LoginPage() {
                 className="h-4 w-4 text-blue-600 dark:text-blue-500 focus:ring-blue-500 border-zinc-300 dark:border-zinc-600 dark:bg-zinc-800 rounded cursor-pointer transition-colors"
               />
               <label htmlFor="remember-me" className="ml-2 block text-sm text-zinc-600 dark:text-zinc-400 cursor-pointer transition-colors">
-                Lembrar-me
+                Lembrar de mim
               </label>
             </div>
 

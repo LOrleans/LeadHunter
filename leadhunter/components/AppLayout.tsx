@@ -73,7 +73,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="h-16 flex items-center px-6 border-b border-zinc-200 dark:border-zinc-800 shrink-0">
           <div className="flex items-center gap-2 text-blue-600 dark:text-blue-500">
             <Target className="w-6 h-6" />
-            <span className="text-xl font-bold text-zinc-900 dark:text-white tracking-tight">LeadScout AI</span>
+            <span className="text-xl font-bold text-zinc-900 dark:text-white tracking-tight">LeadHunter</span>
           </div>
         </div>
 
